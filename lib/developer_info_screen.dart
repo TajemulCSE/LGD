@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DeveloperInfoScreen extends StatelessWidget {
   const DeveloperInfoScreen({super.key});
@@ -10,10 +11,19 @@ class DeveloperInfoScreen extends StatelessWidget {
         title: Text("Developer Info"),
       ),
       body: Container(
-        color: Colors.amber,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.amber,
+        ),
+        
         child: ListView(
           children: [
-            Image.network("https://tajemulcse.github.io/images/about-me.png"),
+            // Image.network("https://tajemulcse.github.io/images/about-me.png"),
+            
+            CachedNetworkImage(imageUrl:"https://tajemulcse.github.io/images/about-me.png",
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error), 
+             ),
             
             SizedBox(height: 40,),
             Row(
