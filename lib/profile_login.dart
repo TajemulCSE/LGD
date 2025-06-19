@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lgd/login.dart';
+import 'package:lgd/sign_up.dart';
 class ProfileLogin extends StatelessWidget {
   const ProfileLogin({super.key});
 
@@ -15,7 +17,13 @@ class ProfileLogin extends StatelessWidget {
         ) ,
         child: ListView(
           children: [
-            ElevatedButton(onPressed: (){}, child: Text("Login"))
+            ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+            }, child: Text("Login"))
+            ,
+            ElevatedButton(onPressed:(){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+            }, child: Text("Signup"))
             ,
             CachedNetworkImage(imageUrl:"https://tajemulcse.github.io/images/about-me.png",
             placeholder: (context, url) => CircularProgressIndicator(),
