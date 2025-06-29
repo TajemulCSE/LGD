@@ -1,13 +1,45 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lgd/login.dart';
 
-class  SignUp extends StatelessWidget {
-       SignUp({super.key});
+class SignUp extends StatefulWidget{
+
+  @override
+  State<SignUp> createState() =>_SignUp();
+  
+}
+
+class  _SignUp extends State<SignUp>{
+      
 String whatsapp="",squad="",email="",password="";
 TextEditingController whatsappcontoller=TextEditingController();
 TextEditingController squadcontoller=TextEditingController();
 TextEditingController emailcontoller=TextEditingController();
 TextEditingController passwordcontoller=TextEditingController();
+
+signup() async{
+  if(email!="" && password!="" && squad!="" && whatsapp !="")
+  {
+    try{
+      UserCredential userCredential= await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Registered Successfully")),
+
+      );
+
+    } on FirebaseAuthException catch(e){
+      if (e.code=='week-password') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Password is too weak")));
+        
+      }
+      else if(e.code=='email-already-in-use'){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Email already registered")))
+
+      }
+    }
+  }
+}
+
   @override
   Widget build(BuildContext context) {
   
