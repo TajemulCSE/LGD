@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lgd/login.dart';
 
 class  SignUp extends StatelessWidget {
-
+       SignUp({super.key});
+String name="",phone="",email="",password="";
+TextEditingController namecontoller=TextEditingController();
+TextEditingController phonecontoller=TextEditingController();
+TextEditingController emailcontoller=TextEditingController();
+TextEditingController passwordcontoller=TextEditingController();
   @override
   Widget build(BuildContext context) {
   
@@ -11,71 +16,73 @@ class  SignUp extends StatelessWidget {
         title: Text("Sign Up"),
         backgroundColor: Colors.amber,
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Text("WhatsApp Number:"),
-              SizedBox(width: 10,),
-              
-              Expanded(child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter WhatsApp Number"
-                ),
-              ))
-
-            ],
-          ),
-          Row(
-            children: [
-              Text("Squad Name: "),
-              SizedBox(width: 10,),
-              Expanded(child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter your Squad Name"
-                ),
-              ))
-            ],
-          ),
-          Row(
-            children: [
-              Text("Password: "),
-              SizedBox(width: 10,),
-              Expanded(child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter your Squad Name"
-                ),
-              ))
-            ],
-          ),
-          Row(
-            children: [
-              Text("Confirm Password: "),
-              SizedBox(width: 10,),
-              Expanded(child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter your password again"
-                ),
-              ))
-            ],
-          ),
-          Row(
-            children: [
-              ElevatedButton(onPressed: (){}, child: Text("SingUp"))
-            ],
-          ),
-          Row(
-            children: [
-              Flexible(child: Text("Already a member? ")),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
-                },
-                child: Text("Login", style: TextStyle(color: Colors.blue),),
-              )
-            ],
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text("WhatsApp Number:"),
+                SizedBox(width: 10,),
+                
+                Expanded(child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter WhatsApp Number"
+                  ),
+                ))
+        
+              ],
+            ),
+            Row(
+              children: [
+                Text("Squad Name: "),
+                SizedBox(width: 10,),
+                Expanded(child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter your Squad Name"
+                  ),
+                ))
+              ],
+            ),
+            Row(
+              children: [
+                Text("Password: "),
+                SizedBox(width: 10,),
+                Expanded(child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter your Squad Name"
+                  ),
+                ))
+              ],
+            ),
+            Row(
+              children: [
+                Text("Confirm Password: "),
+                SizedBox(width: 10,),
+                Expanded(child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter your password again"
+                  ),
+                ))
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(onPressed: (){}, child: Text("SingUp"))
+              ],
+            ),
+            Row(
+              children: [
+                Flexible(child: Text("Already a member? ")),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+                  },
+                  child: Text("Login", style: TextStyle(color: Colors.blue),),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
