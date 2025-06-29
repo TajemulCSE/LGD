@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lgd/login.dart';
+import 'package:lgd/profile_login.dart';
 
 class SignUp extends StatefulWidget{
 
@@ -18,14 +19,27 @@ TextEditingController emailcontoller=TextEditingController();
 TextEditingController passwordcontoller=TextEditingController();
 
 signup() async{
+  email = emailcontoller.text.trim();
+  password = passwordcontoller.text.trim();
+  squad = squadcontoller.text.trim();
+  whatsapp = whatsappcontoller.text.trim();
+  
   if(email!="" && password!="" && squad!="" && whatsapp !="")
   {
+    setState(() {
+                      email=emailcontoller.text;
+                      password=passwordcontoller.text;
+                      whatsapp=whatsappcontoller.text;
+                      squad=squadcontoller.text;
+    });
     try{
       UserCredential userCredential= await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Registered Successfully")),
+        
 
       );
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileLogin()));
 
     } on FirebaseAuthException catch(e){
       if (e.code=='week-password') {
@@ -33,7 +47,7 @@ signup() async{
         
       }
       else if(e.code=='email-already-in-use'){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Email already registered")))
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Email already registered")));
 
       }
     }
@@ -57,6 +71,7 @@ signup() async{
                 SizedBox(width: 10,),
                 
                 Expanded(child: TextField(
+                  controller: whatsappcontoller,
                   decoration: InputDecoration(
                     hintText: "Enter WhatsApp Number"
                   ),
@@ -113,7 +128,9 @@ signup() async{
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: (){}, child: Text("SingUp"))
+                ElevatedButton(onPressed: (){
+                  signup();
+                }, child: Text("SingUp"))
               ],
             ),
             Row(
