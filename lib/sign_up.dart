@@ -3,9 +3,9 @@ import 'package:lgd/login.dart';
 
 class  SignUp extends StatelessWidget {
        SignUp({super.key});
-String name="",phone="",email="",password="";
-TextEditingController namecontoller=TextEditingController();
-TextEditingController phonecontoller=TextEditingController();
+String whatsapp="",squad="",email="",password="";
+TextEditingController whatsappcontoller=TextEditingController();
+TextEditingController squadcontoller=TextEditingController();
 TextEditingController emailcontoller=TextEditingController();
 TextEditingController passwordcontoller=TextEditingController();
   @override
@@ -40,6 +40,19 @@ TextEditingController passwordcontoller=TextEditingController();
                   decoration: InputDecoration(
                     hintText: "Enter your Squad Name"
                   ),
+                  controller: squadcontoller,
+                ))
+              ],
+            ),
+             Row(
+              children: [
+                Text("Email: "),
+                SizedBox(width: 10,),
+                Expanded(child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Email"
+                  ),
+                  controller: emailcontoller,
                 ))
               ],
             ),
@@ -49,8 +62,9 @@ TextEditingController passwordcontoller=TextEditingController();
                 SizedBox(width: 10,),
                 Expanded(child: TextField(
                   decoration: InputDecoration(
-                    hintText: "Enter your Squad Name"
+                    hintText: "Password"
                   ),
+                  controller: passwordcontoller,
                 ))
               ],
             ),
