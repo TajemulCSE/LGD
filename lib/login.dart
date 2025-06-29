@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lgd/sign_up.dart';
 
 class Login extends StatelessWidget{
   const Login({super.key});
@@ -6,6 +7,8 @@ class Login extends StatelessWidget{
 @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
 
         appBar: AppBar(
             title: Text("LGD Login"),backgroundColor: Colors.red,
@@ -40,6 +43,17 @@ class Login extends StatelessWidget{
                     ElevatedButton(onPressed:(){}, child: Text("Login"))
                   ],
                   
+                ),
+                Row(
+                  children: [
+                    Flexible(child: Text("Not a member?")),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+                      },
+                      child: Text("Sign Up",style: TextStyle(color: Colors.blue),),
+                    )
+                  ],
                 )
                 
               ],
