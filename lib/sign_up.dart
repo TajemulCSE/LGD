@@ -4,6 +4,8 @@ import 'package:lgd/login.dart';
 import 'package:lgd/profile_login.dart';
 
 class SignUp extends StatefulWidget{
+  const SignUp({super.key});
+
 
   @override
   State<SignUp> createState() =>_SignUp();
@@ -112,6 +114,7 @@ signup() async{
                     hintText: "Password"
                   ),
                   controller: passwordcontoller,
+                  obscureText: true,
                 ))
               ],
             ),
@@ -121,8 +124,9 @@ signup() async{
                 SizedBox(width: 10,),
                 Expanded(child: TextField(
                   decoration: InputDecoration(
-                    hintText: "Enter your password again"
+                    hintText: "Enter your password again",
                   ),
+                  obscureText: true,
                 ))
               ],
             ),
