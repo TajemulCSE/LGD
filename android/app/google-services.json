@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "159759413439",
+    "project_id": "fir-authforlgd",
+    "storage_bucket": "fir-authforlgd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159759413439:android:8cd9830e60917c17f6160a",
+        "android_client_info": {
+          "package_name": "com.example.lgd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMZYFm-93uvKvrrCWP3UFqaask89mtpKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
