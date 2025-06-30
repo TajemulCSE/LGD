@@ -1,16 +1,21 @@
-# lgd
+# 🎮 LGD Esports App made with flutter
 
-A new Flutter project.
+![Flutter](https://img.shields.io/badge/Flutter-3.19-blue)
+![Firebase](https://img.shields.io/badge/Firebase-Auth%20%26%20Firestore-orange)
 
-## Getting Started
+A Flutter app for players to discover and join competitive esports tournaments.
 
-This project is a starting point for a Flutter application.
+## Features
+- Browse active tournaments
+- Sing Up for Squad
+- Login into profile
+- Join tournaments with one tap
+- Get Tournament Custom Room ID Passwords
+- Track match schedules
+- Player statistics dashboard
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+```bash
+git clone https://github.com/TajemulCSE/LGD.git
+cd LGD
+flutter pub get
