@@ -162,7 +162,7 @@ class _Login extends State<Login> {
                   Flexible(child: Text("Not a member?")),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => SignUp()),
                       );

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lgd/login.dart';
 import 'package:lgd/profile_login.dart';
 
@@ -107,6 +108,8 @@ class _SignUp extends State<SignUp> {
                         hintText: "Enter WhatsApp Number",
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
                       ),
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                 ],
@@ -207,7 +210,7 @@ class _SignUp extends State<SignUp> {
                   Flexible(child: Text("Already a member? ")),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => Login()),
                       );
