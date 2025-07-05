@@ -11,25 +11,35 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUp extends State<SignUp> {
-  String whatsapp = "", squad = "", email = "", password = "";
+  String whatsapp = "", squad = "", email = "", password = "", confrimpass="";
   TextEditingController whatsappcontoller = TextEditingController();
   TextEditingController squadcontoller = TextEditingController();
   TextEditingController emailcontoller = TextEditingController();
   TextEditingController passwordcontoller = TextEditingController();
+  TextEditingController confrimpasscontroller=TextEditingController();
+
+   showSnakebar(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  }
+
 
   signup() async {
     email = emailcontoller.text.trim();
     password = passwordcontoller.text.trim();
     squad = squadcontoller.text.trim();
     whatsapp = whatsappcontoller.text.trim();
+    confrimpass=confrimpasscontroller.text.trim();
 
-    if (email != "" && password != "" && squad != "" && whatsapp != "") {
-      setState(() {
-        email = emailcontoller.text;
-        password = passwordcontoller.text;
-        whatsapp = whatsappcontoller.text;
-        squad = squadcontoller.text;
-      });
+    if(email.isEmpty || password.isEmpty ||squad.isEmpty || whatsapp.isEmpty ||confrimpass.isEmpty){
+      showSnakebar("Some field is empty");
+      return;
+    }
+    if(password!=confrimpass){
+      showSnakebar("Password do not match");
+    }
+
+    if (email != "" && password != "" && squad != "" && whatsapp != "" && confrimpass!="") {
+
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
@@ -41,15 +51,25 @@ class _SignUp extends State<SignUp> {
           MaterialPageRoute(builder: (context) => ProfileLogin()),
         );
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'week-password') {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("Password is too weak")));
-        } else if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("Email already registered")));
-        }
+      switch (e.code) {
+        case 'email-already-in-use':
+          showSnakebar("Email is already registered.");
+          break;
+        case 'invalid-email':
+          showSnakebar("Please enter a valid email address.");
+          break;
+        case 'weak-password':
+          showSnakebar("Password should be at least 6 characters.");
+          break;
+        case 'operation-not-allowed':
+          showSnakebar("Signup is currently disabled. Try again later.");
+          break;
+        case 'network-request-failed':
+          showSnakebar("Check your internet connection.");
+          break;
+        default:
+          showSnakebar("Signup failed: ${e.message}");
+      }
       }
     }
   }
@@ -165,6 +185,7 @@ class _SignUp extends State<SignUp> {
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
                       ),
                       obscureText: true,
+                      controller: confrimpasscontroller,
                     ),
                   ),
                 ],

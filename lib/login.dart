@@ -26,6 +26,9 @@ class _Login extends State<Login> {
       email = emailcontoller.text;
       password = passwordcontoller.text;
     });
+    if(password.isEmpty || email.isEmpty){
+      showSnakebar("Email or Password is missing");
+    }
 
     if (password != "" && email != "") {
       try {
@@ -35,8 +38,9 @@ class _Login extends State<Login> {
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreen()), 
         );
+        showSnakebar("Login Successful");
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
           case 'user-not-found':
