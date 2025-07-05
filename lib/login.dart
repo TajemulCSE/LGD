@@ -17,6 +17,10 @@ class _Login extends State<Login> {
 
   String email = "", password = "";
 
+  showSnakebar(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  }
+
   userLogin() async {
     setState(() {
       email = emailcontoller.text;
@@ -34,20 +38,24 @@ class _Login extends State<Login> {
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
       } on FirebaseAuthException catch (e) {
-        print("FirebaseAuthException code: ${e.code}");
-
-        if (e.code == 'user-not-found') {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("Email is not registered")));
-        } else if (e.code == 'wrong-password') {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("Wrong password")));
-        } else if (e.code == 'invalid-credential') {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text("invalid-credential")));
+        switch (e.code) {
+          case 'user-not-found':
+            showSnakebar("No user found with this email.");
+            break;
+          case 'wrong-password':
+            showSnakebar("Incorrect password.");
+            break;
+          case 'invalid-email':
+            showSnakebar("Invalid email address format.");
+            break;
+          case 'invalid-credential':
+            showSnakebar("Invalid email or password.");
+            break;
+          case 'user-disabled':
+            showSnakebar("This account has been disabled.");
+            break;
+          default:
+            showSnakebar("Login failed: ${e.message}");
         }
       }
     }
