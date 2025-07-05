@@ -56,7 +56,10 @@ class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("LGD Login"), backgroundColor: Colors.red),
+      appBar: AppBar(
+        title: Text("LGD User Login"),
+        backgroundColor: Colors.red,
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
@@ -107,6 +110,7 @@ class _Login extends State<Login> {
                   ),
                 ],
               ),
+              SizedBox(height: 5),
               Row(
                 children: [
                   Text(
@@ -116,23 +120,31 @@ class _Login extends State<Login> {
                   SizedBox(width: 10),
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(hintText: "Enter Password"),
+                      decoration: InputDecoration(
+                        hintText: "Enter Password",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        prefixIcon: Icon(Icons.password),
+                      ),
                       controller: passwordcontoller,
+                      obscureText: true,
                     ),
                   ),
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
                     onPressed: () {
                       userLogin();
-                      print("login button");
                     },
                     child: Text("Login"),
                   ),
                 ],
               ),
+              SizedBox(height: 30),
               Row(
                 children: [
                   Flexible(child: Text("Not a member?")),
