@@ -12,12 +12,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUp extends State<SignUp> {
-  String whatsapp = "", squad = "", email = "", password = "", confrimpass="";
+  String whatsapp = "", squad = "", email = "", password = "", confrimpass="", squadleadername="";
   TextEditingController whatsappcontoller = TextEditingController();
   TextEditingController squadcontoller = TextEditingController();
   TextEditingController emailcontoller = TextEditingController();
   TextEditingController passwordcontoller = TextEditingController();
   TextEditingController confrimpasscontroller=TextEditingController();
+  TextEditingController squadleadernamecontroller=TextEditingController();
 
    showSnakebar(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
@@ -30,8 +31,9 @@ class _SignUp extends State<SignUp> {
     squad = squadcontoller.text.trim();
     whatsapp = whatsappcontoller.text.trim();
     confrimpass=confrimpasscontroller.text.trim();
+    squadleadername=squadleadernamecontroller.text.trim();
 
-    if(email.isEmpty || password.isEmpty ||squad.isEmpty || whatsapp.isEmpty ||confrimpass.isEmpty){
+    if(email.isEmpty || password.isEmpty ||squad.isEmpty || whatsapp.isEmpty ||confrimpass.isEmpty || squadleadername.isEmpty){
       showSnakebar("Some field is empty");
       return;
     }
@@ -39,7 +41,7 @@ class _SignUp extends State<SignUp> {
       showSnakebar("Password do not match");
     }
 
-    if (email != "" && password != "" && squad != "" && whatsapp != "" && confrimpass!="") {
+    if (email != "" && password != "" && squad != "" && whatsapp != "" && confrimpass!="" &&squadleadername!="") {
 
       try {
         UserCredential userCredential = await FirebaseAuth.instance
@@ -142,6 +144,7 @@ class _SignUp extends State<SignUp> {
                         hintText: "Enter Real Name",
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
                       ),
+                      controller: squadleadernamecontroller ,
                       
                     ),
                   ),
