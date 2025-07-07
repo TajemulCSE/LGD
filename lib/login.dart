@@ -37,7 +37,7 @@ class _Login extends State<Login> {
           email: email,
           password: password,
         );
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => UserDashboard()), 
         );
