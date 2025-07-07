@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:lgd/dashboard/admin_dashboard.dart';
 import 'package:lgd/dashboard/user_dashboard.dart';
 import 'package:lgd/home_screen.dart';
 import 'package:lgd/sign_up.dart';
@@ -37,10 +39,33 @@ class _Login extends State<Login> {
           email: email,
           password: password,
         );
+
+         User? currentUser=FirebaseAuth.instance.currentUser;
+      if (currentUser!=null) {
+      String uid=currentUser.uid;
+      final doc=await FirebaseFirestore.instance.collection("users").doc(uid).get();
+      final userRole=doc["role"];
+      switch (userRole) {
+        case "user":
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => UserDashboard()), 
         );
+          break;
+
+          case "admin":
+          Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => AdminDashboard()), 
+        );
+        default:
+      }
+
+
+    }
+        
+        
+        
         showSnakebar("Login Successful");
       } on FirebaseAuthException catch (e) {
         switch (e.code) {

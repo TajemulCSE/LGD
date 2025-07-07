@@ -35,8 +35,8 @@ class _HomeScreen extends State<HomeScreen>{
         title: Row(
           children: [
             Text("LGD"),
-            SizedBox(width: 18,),
-            Image.asset("assets/photos/LGD_NEW_LOGO_BG_Removed.png", height: 80, fit: BoxFit.contain,)
+            
+            Center(child: Image.asset("assets/photos/LGD_NEW_LOGO_BG_Removed.png", height: 70, width: 100, fit: BoxFit.contain,))
           ],
         ),
       ),
