@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:lgd/login.dart';
-import 'package:lgd/sign_up.dart';
+import 'package:lgd/screens/login/login.dart';
+import 'package:lgd/screens/sign_up/sign_up.dart';
 class ProfileLogin extends StatelessWidget {
   const ProfileLogin({super.key});
 
