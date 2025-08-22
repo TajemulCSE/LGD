@@ -41,7 +41,7 @@ class _Login extends State<Login> {
           ),
         ),
         child: SingleChildScrollView(
-          child: Consumer<AuthProvider>(
+          child: Consumer<AuthenticationProvider>(
             builder: (context, auth, child) {
               return Column(
                 children: [

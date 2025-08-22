@@ -1,101 +1,67 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lgd/providers/user_provider.dart';
+import 'package:provider/provider.dart';
+
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
 
   @override
-  State<AdminDashboard> createState() => _UserDashboard();
+  State<AdminDashboard> createState() => _AdminDashboardState();
 }
 
-class _UserDashboard extends State<AdminDashboard> {
-
-  //custom snakebar method
-  showSnakebar(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-  }
-
-  String whatsapp = "",
-      squad = "",
-      email = "",
-      squadleadername = "",
-      role="";
-  bool loading = true;
-
+class _AdminDashboardState extends State<AdminDashboard> {
   @override
   void initState() {
     super.initState();
-    userDataFetch();
-  }
-
-
-  Future<void> userDataFetch() async {
-    User? currentUser=FirebaseAuth.instance.currentUser;
-    if (currentUser!=null) {
-      String uid=currentUser.uid;
-
-      DocumentSnapshot userDoc= await FirebaseFirestore.instance.collection("users").doc(uid).get();
-
-      if (userDoc.exists) {
-        setState(() {
-          email=userDoc["email"] ?? "";
-          whatsapp=userDoc["whatsapp"] ??"";
-          squad=userDoc["squadname"] ??"";
-          squadleadername=userDoc["squadleadername"] ?? "";
-          role=userDoc["role"]?? "";
-          loading=false;
-
-        });
-      }
-      else{
-        setState(() {
-          loading=false;
-          
-        });
-        showSnakebar("User Data not found");
-        
-
-      }
-      
-    }
+    // Fetch user data when screen loads
+    Future.microtask(() =>
+        Provider.of<UserProvider>(context, listen: false).fetchUserData());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Admin Dashboard")),
-    body: loading? Center(child: CircularProgressIndicator(),)
-    :
-    SingleChildScrollView(
-      child: Column(
-        children: [
-          Row(children: [
-            Text("Email:"), Text("$email")
-          ],
-          ),
-          Row(children: [
-            Text("Squad Name:"), Text("$squad")
-          ],
-          ),
-          Row(children: [
-            Text("Whatsapp Number:"), Text("$whatsapp")
-          ],
-          ),
-          Row(children: [
-            Text("Squad Leader Name:"), Text("$squadleadername")
-          ],
-          ),
-          Row(
-            children: [
-              Text("Role: $role")
-            ],
-          )
-        ],
-      ),
-    )
-    
-    
-    
+    final userProvider = Provider.of<UserProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Admin Dashboard")),
+      body: userProvider.loading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text("Email: "),
+                      Text(userProvider.email),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("Squad Name: "),
+                      Text(userProvider.squad),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("Whatsapp Number: "),
+                      Text(userProvider.whatsapp),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("Squad Leader Name: "),
+                      Text(userProvider.squadLeaderName),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Role: ${userProvider.role}"),
+                    ],
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lgd/screens/dev_info/developer_info_screen.dart';
-import 'package:lgd/profile_login.dart';
+import 'package:lgd/user_profile_screen.dart';
 import 'package:lgd/screens/tour_schedule/tournament_schedule_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -89,7 +88,7 @@ class _HomeScreen extends State<HomeScreen> {
               )
               : _selectedIndex == 1
               ? TournamentScheduleScreen()
-              : ProfileLogin(),
+              : UserProfileScreen(),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

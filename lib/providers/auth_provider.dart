@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AuthProvider with ChangeNotifier {
+class AuthenticationProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -15,7 +15,7 @@ class AuthProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  AuthProvider() {
+  AuthenticationProvider() {
     _auth.authStateChanges().listen((firebaseUser) {
       _user = firebaseUser;
       notifyListeners();
@@ -35,14 +35,17 @@ class AuthProvider with ChangeNotifier {
     }
 
     try {
-      UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
       _user = userCredential.user;
 
       // Fetch role from Firestore
       if (_user != null) {
-        DocumentSnapshot doc = await _firestore.collection("users").doc(_user!.uid).get();
+        DocumentSnapshot doc =
+            await _firestore.collection("users").doc(_user!.uid).get();
         String userRole = doc["role"];
 
         _isLoading = false;
