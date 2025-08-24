@@ -32,7 +32,7 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearUser(){
+  Future<void> clearUser() async{
       whatsapp = "";
       squad = "";
       email = "";

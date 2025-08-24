@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lgd/providers/user_provider.dart';
 import 'package:lgd/screens/login/login.dart';
 import 'package:lgd/screens/sign_up/sign_up.dart';
@@ -17,8 +16,8 @@ class UserProfileScreen extends StatelessWidget {
       appBar: AppBar(title: Text("LGD Player Profile")),
       body: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-        child: Consumer<UserProvider>(
-          builder: (BuildContext context, UserProvider user, Widget? child) {
+        child: Consumer2<UserProvider,AuthenticationProvider>(
+          builder: (BuildContext context, UserProvider user, auth, Widget? child) {
             return ListView(
               children: [
                 Row(
@@ -47,16 +46,14 @@ class UserProfileScreen extends StatelessWidget {
                     Text(user.squad),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
-                  },
-                  child: Text("Login"),
-                ),
-                ElevatedButton(
+                auth.isLoggedIn? ElevatedButton(
+                      onPressed: () async {
+                        await user.clearUser();
+                        await auth.logout();
+                      },
+                      child: Text("logout"),
+                    )
+                :ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -65,18 +62,23 @@ class UserProfileScreen extends StatelessWidget {
                   },
                   child: Text("Signup"),
                 ),
+                
 
-                Consumer<AuthenticationProvider>(
-                  builder: (context, auth, child) {
-                    return ElevatedButton(
-                      onPressed: () async {
-                        user.clearUser();
-                        await auth.logout();
-                      },
-                      child: Text("logout"),
+                
+                    !auth.isLoggedIn? ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
                     );
                   },
-                ),
+                  child: Text("Login"),
+                )
+                : Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Center(child: Text("You can now register for tournaments")),
+                )
+                    
               ],
             );
           },

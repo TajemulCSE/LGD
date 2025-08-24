@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lgd/providers/user_provider.dart';
 import 'package:lgd/screens/dev_info/developer_info_screen.dart';
 import 'package:lgd/user_profile_screen.dart';
 import 'package:lgd/screens/tour_schedule/tournament_schedule_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,7 +90,12 @@ class _HomeScreen extends State<HomeScreen> {
               )
               : _selectedIndex == 1
               ? TournamentScheduleScreen()
-              : UserProfileScreen(),
+              : Consumer<UserProvider>( builder: (context, users, child) {
+                users.fetchUserData();
+                return UserProfileScreen();
+                }),
+              
+              
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
