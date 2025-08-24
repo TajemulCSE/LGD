@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lgd/providers/auth_provider.dart';
 import 'package:lgd/providers/tournament_provider.dart';
+import 'package:lgd/screens/custom_room/custom_room_id_pass.dart';
 import 'package:provider/provider.dart';
 
 class TournamentScheduleScreen extends StatelessWidget {
@@ -26,9 +27,12 @@ class TournamentScheduleScreen extends StatelessWidget {
                 children: [
                   Text("Registered Team number: ${tour.registeredNumber}"),
                   Text("Tour name: ${tour.name}"),
+
+                  auth.isLoggedIn?
                   ElevatedButton(
                     onPressed: () async {
                       if (!auth.isLoggedIn) {
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Login to register a tour")),
                         );
@@ -40,6 +44,7 @@ class TournamentScheduleScreen extends StatelessWidget {
                           );
                           return;
                         } else {
+
                           await tour.registerUser(context);
                           await tour.fetch10pmTour();
                            await tour.showRoomID(context);
@@ -51,9 +56,10 @@ class TournamentScheduleScreen extends StatelessWidget {
                       }
                     },
                     child: Text("Register"),
-                  ),
-                  tour.isRegistered?
+                  ): Text("Login first"),
+                  tour.isRegistered && auth.isLoggedIn?
                   ElevatedButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> CustomRoomIdPass()));
 
                   }, child: Text("Room ID Pass"))
                   :
