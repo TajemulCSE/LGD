@@ -18,8 +18,9 @@ class TournamentScheduleScreen extends StatelessWidget {
               return ExpansionTile(
                 title: Text("LGD 10 PM Tournament"),
                 leading: Icon(Icons.sports_esports),
-                onExpansionChanged: (Expanded) {
-                  tour.fetch10pmTour();
+                onExpansionChanged: (Expanded) async {
+                   await tour.fetch10pmTour();
+                   await tour.showRoomID(context);
                 },
 
                 children: [
@@ -39,8 +40,10 @@ class TournamentScheduleScreen extends StatelessWidget {
                           );
                           return;
                         } else {
-                          await tour.registerUser();
+                          await tour.registerUser(context);
                           await tour.fetch10pmTour();
+                           await tour.showRoomID(context);
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("Register succes")),
                           );
@@ -49,6 +52,12 @@ class TournamentScheduleScreen extends StatelessWidget {
                     },
                     child: Text("Register"),
                   ),
+                  tour.isRegistered?
+                  ElevatedButton(onPressed: (){
+
+                  }, child: Text("Room ID Pass"))
+                  :
+                  Text("You are not registered")
                 ],
               );
             },
