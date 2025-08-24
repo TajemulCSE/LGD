@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lgd/providers/user_provider.dart';
 import 'package:lgd/screens/dev_info/developer_info_screen.dart';
+import 'package:lgd/screens/lgd_rules/rules_ff.dart';
+import 'package:lgd/screens/live_stream/live_stream.dart';
 import 'package:lgd/user_profile_screen.dart';
 import 'package:lgd/screens/tour_schedule/tournament_schedule_screen.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +62,39 @@ class _HomeScreen extends State<HomeScreen> {
                 );
               },
             ),
+
+            ListTile(
+              leading: Icon(Icons.live_tv_outlined),
+              title: Text("Live Steaming "),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LiveStream(),
+                  ),
+                );
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.rule),
+              title: Text("LGD Tour Rules (FF))"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RulesFF(),
+                  ),
+                );
+              },
+            ),
+
+
+
+
+
+
+
           ],
         ),
       ),

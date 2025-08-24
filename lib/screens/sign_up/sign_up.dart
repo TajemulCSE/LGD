@@ -65,7 +65,7 @@ class _SignUp extends State<SignUp> {
             .createUserWithEmailAndPassword(email: email, password: password);
         showSnakebar("Registered Successfully");
 
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => UserProfileScreen()),
         );
@@ -81,6 +81,7 @@ class _SignUp extends State<SignUp> {
           "role": "user",
           "createdAt": FieldValue.serverTimestamp(),
         });
+        
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
           case 'email-already-in-use':
@@ -262,6 +263,7 @@ class _SignUp extends State<SignUp> {
                   ElevatedButton(
                     onPressed: () {
                       signup();
+
                     },
                     child: Text("SingUp"),
                   ),
