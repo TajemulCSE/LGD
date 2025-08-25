@@ -11,12 +11,14 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
+  
   @override
   void initState() {
     super.initState();
-    // Fetch user data when screen loads
-    Future.microtask(() =>
-        Provider.of<UserProvider>(context, listen: false).fetchUserData());
+    // Safe fetch after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<UserProvider>(context, listen: false).fetchUserData();
+    });
   }
 
   @override
